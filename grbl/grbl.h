@@ -38,6 +38,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "lgtx8p.h"
+
 // Define the Grbl system include files. NOTE: Do not alter organization.
 #include "config.h"
 #include "nuts_bolts.h"

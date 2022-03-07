@@ -20,53 +20,20 @@
 */
 
 #include "grbl.h"
-#define PMCR    (*((volatile unsigned char *)0xF2))
+
 
 // Declare system global variable structure
 system_t sys; 
-void sysClock()
-{
-    // switch to internal crystal
-    GPIOR0 = PMCR & 0x9f;
-    PMCR = 0x80;
-    PMCR = GPIOR0;
 
-    // disable external crystal
-    GPIOR0 = PMCR & 0xf3;
-    PMCR = 0x80;
-    PMCR = GPIOR0;
-}
-
-void lgt8fx8x_init()
-{
-    // enable 32KRC for WDT
-    GPIOR0 = PMCR | 0x10;
-    PMCR = 0x80;
-    PMCR = GPIOR0;
-
-    // clock scalar to 16MHz
-    //CLKPR = 0x80;
-    //CLKPR = 0x01;
-}
-
-void lgt8fx8x_clk_src()
-{
-// select clock source
-    sysClock();
-// select clock prescaler
-    CLKPR = 0x80;
-    CLKPR = 0x01;
-}
 
 int main(void)
 {
-  lgt8fx8x_init();
-  lgt8fx8x_clk_src();
   // Initialize system upon power-up.
+  system_init();   // Configure pinout pins and pin-change interrupt
+
   serial_init();   // Setup serial baud rate and interrupts
   settings_init(); // Load Grbl settings from EEPROM
   stepper_init();  // Configure stepper pins and interrupt timers
-  system_init();   // Configure pinout pins and pin-change interrupt
   
   memset(&sys, 0, sizeof(system_t));  // Clear all system variables
   sys.abort = true;   // Set abort to complete initialization
