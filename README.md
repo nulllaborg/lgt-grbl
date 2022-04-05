@@ -1,3 +1,5 @@
+**本项目是基于grbl 0.9版本https://github.com/grbl/grbl 来修改的**
+
 注意：在开始之前，从ArduinoIDE中删除先前的Grbl库安装。否则，将有编译问题！在Linux上路径 /root/Arduino/libraries。
 
 先需要下载LGT芯片的[**arduno支持包**]()(https://github.com/nulllaborg/arduino_nulllab)
